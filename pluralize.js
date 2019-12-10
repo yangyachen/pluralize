@@ -166,17 +166,31 @@
 
   /**
    * Pluralize or singularize a word based on the passed in count.
-   *
    * @param  {string}  word      The word to pluralize
    * @param  {number}  count     How many of the word exist
    * @param  {boolean} inclusive Whether to prefix with the number (e.g. 3 ducks)
+   * @param  {boolean} hasSpace    - If inclusive is true, this setting determines whether whitespace is added between the count and the word.
+   * @param  {string}  measureWord - If inclusive is true and hasSpace is false, this measureWord is added between the count and the word.
+   * @example <caption> if(i18next.languages[0] === 'en'){ const word = 'year'; const hasSpace = true; } </caption>
+   * // returns '2 years'
+   * pluralize('year', 2, true, true, '');
+   * @example <caption> if(i18next.languages[0] === 'zh'){ const word = '年'; const hasSpace = false; } </caption>
+   * // returns '2年'
+   * pluralize('年', 2, true, false, '');
+   * @example <caption> if(i18next.languages[0] === 'en'){ const word = 'dog'; const hasSpace = true; const measureWord = ''; } </caption>
+   * // returns '3 dogs'
+   * pluralize('dog', 3, true, true, '');
+   * @example <caption> if(i18next.languages[0] === 'zh'){ const word = '狗'; const hasSpace = false; const measureWord = '隻'; } </caption>
+   * // returns '3隻狗'
+   * pluralize('狗', 3, true, false, '隻');
    * @return {string}
    */
-  function pluralize (word, count, inclusive) {
-    var pluralized = count === 1
-      ? pluralize.singular(word) : pluralize.plural(word);
+  function pluralize (word, count, inclusive, hasSpace=true, measureWord='') {
+      var pluralized = count === 1
+          ? pluralize.singular(word) : pluralize.plural(word);
 
-    return (inclusive ? count + ' ' : '') + pluralized;
+      var space = hasSpace ? ' ' : measureWord;
+      return (inclusive ? count + space : '') + pluralized;
   }
 
   /**

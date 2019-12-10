@@ -46,6 +46,8 @@ This module uses a pre-defined list of rules, applied in order, to singularize o
 * `word: string` The word to pluralize
 * `count: number` How many of the word exist
 * `inclusive: boolean` Whether to prefix with the number (e.g. 3 ducks)
+* `hasSpace: boolean ` If inclusive is true, this setting determines whether whitespace is added between the count and the word
+* `measureWord: string` If inclusive is true and hasSpace is false, this measureWord is added between the count and the word
 
 Examples:
 
@@ -57,6 +59,8 @@ pluralize('test', 5) //=> "tests"
 pluralize('test', 1, true) //=> "1 test"
 pluralize('test', 5, true) //=> "5 tests"
 pluralize('蘋果', 2, true) //=> "2 蘋果"
+pluralize('年', 2, true, false) //=> "2年"
+pluralize('蘋果', 2, true, false, '顆') //=> "2顆蘋果"
 
 // Example of new plural rule:
 pluralize.plural('regex') //=> "regexes"
